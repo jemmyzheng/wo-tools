@@ -14,17 +14,17 @@ export const lengthOf = (target: number | string): number => {
  * @param array
  * @param propName
  */
-export const longest = (array:string[]|number[]|object[], propName?:string):string|number|object => {
-  return array.sort((a:string|number|object, b:string|number|object) => {
+export function longest<T>(array:T[], propName?:string):T {
+  return array.sort((a:T, b:T) => {
     let an:number,bn:number;
-    if (typeof a === 'object' || typeof b === 'object') {
-      assert(propName !== undefined && propName !== null && propName !== '');
+    if (propName !== undefined && propName !== null && propName !== '') {
       an = lengthOf((a as any)[propName]);
       bn = lengthOf((b as any)[propName]);
     } else {
-      an = lengthOf(a);
-      bn = lengthOf(b);
+      an = lengthOf(a as unknown as string | number);
+      bn = lengthOf(b as unknown as string | number);
     }
     return  bn - an;
   })[0];
 }
+
